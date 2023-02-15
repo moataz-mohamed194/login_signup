@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../ domain/entities/login.dart';
 import '../../ domain/validation/validator.dart';
@@ -10,7 +9,7 @@ import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../eyesBloc/CheckerCubit.dart';
 
-class SignUpFormWidget extends StatelessWidget {
+class SignUpFormWidget2 extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
@@ -37,37 +36,17 @@ class SignUpFormWidget extends StatelessWidget {
             controler: _emailController,
             validatorTextField: (val) => Validator().validatorEmail(val),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: IntlPhoneField(
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  hintText: 'Phone Number',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    borderSide: BorderSide(color: Colors.black26, width: 0),
-                  ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    borderSide: BorderSide(color: Colors.black26, width: 0),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      _phoneNumberController.clear();
-                    },
-                  ),
-                ),
-
-                initialCountryCode: 'SA',
-                disableLengthCheck: true,
-                validator: (val) =>
-                    Validator().validatorPhoneNumber(val!.number.toString(), val.countryCode.toString()),
-                controller: _phoneNumberController,
-                autovalidateMode: AutovalidateMode.always,
-            ),
+          TextFormFieldWidgets(
+            hintText: 'Phone number',
+            keyboardType: TextInputType.phone,
+            controler: _phoneNumberController,
+            rightWidget: IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              _phoneNumberController.clear();
+            },
+          ),
+            validatorTextField: (val) => Validator().validatorPhoneNumber(val,'+966'),
           ),
           BlocBuilder<CheckerCubit, bool>(
             builder: (context, state) {

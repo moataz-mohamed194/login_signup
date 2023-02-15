@@ -65,21 +65,43 @@ class LoginPage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            Text("Don't have an account?  ", style: TextStyle(color: Colors.grey,  fontWeight: FontWeight.bold),),
-            InkWell(
-              child: Text(
-                'Sign Up',
-                style: TextStyle(
-                  color: Color(0xff5C027E),
-                  // decoration: TextDecoration.underline,
+              Text("Don't have an account?  ", style: TextStyle(color: Colors.grey,  fontWeight: FontWeight.bold),),
+              InkWell(
+                child: Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    color: Color(0xff5C027E),
+                    // decoration: TextDecoration.underline,
+                  ),
                 ),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => CreateAccountPage(num: 1,)));
+                },
               ),
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => CreateAccountPage()));
-              },
-            ),
-          ],),
+            ],),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 10, bottom: 10),
+
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Don't have an account? 2  ", style: TextStyle(color: Colors.grey,  fontWeight: FontWeight.bold),),
+              InkWell(
+                child: Text(
+                  'Sign Up 2',
+                  style: TextStyle(
+                    color: Color(0xff5C027E),
+                    // decoration: TextDecoration.underline,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => CreateAccountPage(num: 2,)));
+                },
+              ),
+            ],),
         ),
       ],
       // padding: EdgeInsets.all(10),

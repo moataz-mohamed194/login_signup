@@ -5,11 +5,14 @@ import '../../../../core/util/snackbar_message.dart';
 import '../../../../core/widgets/loading_widget.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_state.dart';
-import '../widgets/login_form_widget.dart';
 import '../widgets/signup_form_widget.dart';
+import '../widgets/signup_form_widget2.dart';
 import 'MainUserPage.dart';
 
 class CreateAccountPage extends StatelessWidget {
+  final int num;
+
+  const CreateAccountPage({super.key, required this.num});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -57,7 +60,7 @@ class CreateAccountPage extends StatelessWidget {
             if (state is LoadingLoginState) {
               return LoadingWidget();
             }
-            return SignUpFormWidget();
+            return num==1?SignUpFormWidget():SignUpFormWidget2();
           },
         ),
       ),
