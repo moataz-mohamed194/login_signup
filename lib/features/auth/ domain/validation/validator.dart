@@ -14,7 +14,6 @@ class Validator {
   }
 
   String? validatorPhoneNumber(String val, String countryCode) {
-    print(countryCode);
     return val.isEmpty || val.contains(RegExp(r'^[0-9]{10}$')) == false
         ? "must add valid phone number"
         : countryCode != '+966'

@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../ domain/entities/login.dart';
 import '../../../../core/error/Exception.dart';
@@ -41,6 +39,8 @@ class LoginRemoteDataSourceImple extends LoginRemoteDataSource {
   Future<Unit> createAccountMethod(Login login) async {
     try {
       final response = await client.post(Uri.parse('$BASE_URL/auth/register?email=${login.email}&password=${login.password}&phone=${login.phoneNumber}&name=${login.name}'));
+      print(response.body);
+      print(response.statusCode);
       if (response.statusCode == 201 || response.statusCode == 200) {
         return Future.value(unit);
       }if (response.statusCode == 401) {

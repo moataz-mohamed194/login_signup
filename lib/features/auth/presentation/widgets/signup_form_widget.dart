@@ -42,7 +42,7 @@ class SignUpFormWidget extends StatelessWidget {
             child: IntlPhoneField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Phone Number',
+                  hintText: 'Phone Number',
                   filled: true,
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(
