@@ -40,28 +40,31 @@ class CreateAccountPage extends StatelessWidget {
   }
 
   Widget _body(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: BlocConsumer<LoginBloc, LoginState>(
-          listener: (context, state) async {
-            if (state is MessageLoginState) {
-              SnackBarMessage()
-                  .showSuccesSnackBar(message: state.message, context: context);
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => MainUserPage()),
-                  (route) => false);
-            } else if (state is ErrorLoginState) {
-              SnackBarMessage()
-                  .showErrorSnackBar(message: state.message, context: context);
-            }
-          },
-          builder: (context, state) {
-            if (state is LoadingLoginState) {
-              return LoadingWidget();
-            }
-            return num==1?SignUpFormWidget():SignUpFormWidget2();
-          },
+    return SingleChildScrollView(
+      scrollDirection : Axis.vertical,
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: BlocConsumer<LoginBloc, LoginState>(
+            listener: (context, state) async {
+              if (state is MessageLoginState) {
+                SnackBarMessage()
+                    .showSuccesSnackBar(message: state.message, context: context);
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => MainUserPage()),
+                    (route) => false);
+              } else if (state is ErrorLoginState) {
+                SnackBarMessage()
+                    .showErrorSnackBar(message: state.message, context: context);
+              }
+            },
+            builder: (context, state) {
+              if (state is LoadingLoginState) {
+                return LoadingWidget();
+              }
+              return num==1?SignUpFormWidget():SignUpFormWidget2();
+            },
+          ),
         ),
       ),
     );
