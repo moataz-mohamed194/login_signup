@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
-import '../ pages/CreateAccountPage.dart';
 import '../../ domain/entities/login.dart';
 import '../../ domain/validation/validator.dart';
 import '../../../../core/widgets/ButtonWidget.dart';
@@ -37,11 +37,35 @@ class SignUpFormWidget extends StatelessWidget {
             controler: _emailController,
             validatorTextField: (val) => Validator().validatorEmail(val),
           ),
-          TextFormFieldWidgets(
-            hintText: 'Phone number',
-            keyboardType: TextInputType.phone,
-            controler: _phoneNumberController,
-            validatorTextField: (val) => Validator().validatorPhoneNumber(val),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: IntlPhoneField(
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(color: Colors.black26, width: 0),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(color: Colors.black26, width: 0),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      _phoneNumberController.clear();
+                    },
+                  ),
+                ),
+                initialCountryCode: 'SA',
+                disableLengthCheck: true,
+                validator: (val) =>
+                    Validator().validatorPhoneNumber(val!.number.toString(), val.countryCode.toString()),
+                controller: _phoneNumberController,
+                autovalidateMode: AutovalidateMode.onUserInteraction),
           ),
           BlocBuilder<CheckerCubit, bool>(
             builder: (context, state) {
@@ -49,7 +73,7 @@ class SignUpFormWidget extends StatelessWidget {
                 hintText: 'password',
                 keyboardType: TextInputType.text,
                 rightWidget: IconButton(
-                  icon: Icon(Icons.remove_red_eye),
+                  icon: const Icon(Icons.remove_red_eye),
                   onPressed: () {
                     context.read<CheckerCubit>().changeCheck();
                   },
@@ -78,6 +102,7 @@ class SignUpFormWidget extends StatelessWidget {
           password: _passwordController.text.toString(),
           name: _nameController.text.toString(),
           phoneNumber: _phoneNumberController.text.toString());
+      print(login);
       BlocProvider.of<LoginBloc>(context).add(AddUserEvent(login: login));
     }
   }

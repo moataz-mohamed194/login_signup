@@ -5,7 +5,7 @@ class MainUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome our clint'),
+        title: const Text('Welcome'),
       ),
     );
   }
